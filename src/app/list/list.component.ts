@@ -21,7 +21,6 @@ export class ListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.swService.fetchCharacters();
     this.activatedRoute.params.subscribe(
       (params) => {
         this.characters = this.swService.getCharacters(params.side);
