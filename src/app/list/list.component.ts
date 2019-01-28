@@ -13,6 +13,7 @@ export class ListComponent implements OnInit {
   activatedRoute: ActivatedRoute;
   swService: StarWarsService;
   loadedSide = 'all';
+  subscription;
 
   constructor(activatedRoute: ActivatedRoute, swService: StarWarsService) {
     this.activatedRoute = activatedRoute;
@@ -20,13 +21,14 @@ export class ListComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.swService.fetchCharacters();
     this.activatedRoute.params.subscribe(
       (params) => {
         this.characters = this.swService.getCharacters(params.side);
         this.loadedSide = params.side;
       }
     );
-    this.swService.charactersChanged.subscribe(
+    this. subscription = this.swService.charactersChanged.subscribe(
       () => {
         this.characters = this.swService.getCharacters(this.loadedSide);
       }
